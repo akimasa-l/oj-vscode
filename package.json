@@ -18,6 +18,14 @@
 			{
 				"command": "oj-vscode.helloWorld",
 				"title": "Hello World"
+			},
+			{
+				"command": "oj-vscode.accNewAll",
+				"title": "acc new all"
+			},
+			{
+				"command": "oj-vscode.accNew",
+				"title": "acc new"
 			}
 		]
 	},

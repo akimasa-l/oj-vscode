@@ -13,15 +13,44 @@ export function activate(context: vscode.ExtensionContext) {
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with registerCommand
 	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('oj-vscode.helloWorld', () => {
+	const disposable = vscode.commands.registerCommand('oj-vscode.helloWorld', () => {
 		// The code you place here will be executed every time your command is executed
 
 		// Display a message box to the user
 		vscode.window.showInformationMessage('Hello World from oj-vscode!');
 	});
 
-	context.subscriptions.push(disposable);
+	const accNewAll = vscode.commands.registerCommand("oj-vscode.accNewAll", () => {
+		const a: [number, number] = [1, 2];
+		const inputBoxOptions = {
+			ignoreFocusOut: true,
+			placeHolder: "コンテストの名前を入れてください。",
+			prompt: "これどこだ。",
+			value: "apple apple",
+			valueSelection: a,
+		};
+		const inputBox = vscode.window.showInputBox(inputBoxOptions);
+
+		//vscode.window.showInformationMessage('Hello World acc!');
+		inputBox.then((contestName: string | undefined) => {
+			const terminal = vscode.window.createTerminal("Code");
+			terminal.show();
+			terminal.sendText(`echo ${contestName}`);
+		});
+	});
+
+	const accNew = vscode.commands.registerCommand("oj-vscode.accNew", () => {
+		const items = ["Problem A", "Problem B"]
+		const quickPick = vscode.window.showQuickPick(items);
+		quickPick.then((contestProblem: string | undefined) => {
+			const terminal = vscode.window.createTerminal("Code");
+			terminal.show();
+			terminal.sendText(`echo ${contestProblem}`);
+		});
+	});
+
+	context.subscriptions.push(disposable, accNewAll, accNew);
 }
 
 // this method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
